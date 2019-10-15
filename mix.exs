@@ -51,6 +51,7 @@ defmodule EctoSQL.MixProject do
       {:db_connection, "~> 2.1"},
       postgrex_dep(),
       myxql_dep(),
+      mongodb_dep(),
 
       # Bring something in for JSON during tests
       {:jason, ">= 0.0.0", only: [:test, :docs]},
@@ -85,6 +86,14 @@ defmodule EctoSQL.MixProject do
       {:myxql, path: path}
     else
       {:myxql, "~> 0.2.0", optional: true}
+    end
+  end
+
+  defp mongodb_dep do
+    if path = System.get_env("MONGODB_PATH") do
+      {:mongodb, path: path}
+    else
+      {:mongodb, "~> 0.5.1", optional: true}
     end
   end
 
